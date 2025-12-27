@@ -1,17 +1,18 @@
 from machine import SoftI2C, Pin
 from ssd1306 import SSD1306_I2C
 from wifi import connect_wifi
+from config import I2C_SDA_PIN, I2C_SCL_PIN, OLED_ADDR, BUTTON1_PIN, BUTTON2_PIN, LED_PIN, WIFI_SSID, WIFI_PASSWORD
 
 import time
 from image import display_image, tangledup_ai_logo
 from control import GameController
 from page import page_control
 
-controller = GameController(button1_pin=0, button2_pin=25)
+controller = GameController(button1_pin=BUTTON1_PIN, button2_pin=BUTTON2_PIN)
 
 
-i2c = SoftI2C(sda=Pin(21), scl=Pin(22))
-oled = SSD1306_I2C(128, 64, i2c, addr=0x3c)
+i2c = SoftI2C(sda=Pin(I2C_SDA_PIN), scl=Pin(I2C_SCL_PIN))
+oled = SSD1306_I2C(128, 64, i2c, addr=OLED_ADDR)
 oled.font_load("GB2312-12.fon")
 oled.fill(0)
 
@@ -96,7 +97,7 @@ def game_control():
 
 
 def main(SSID, PASSWORD):
-    led = Pin(2, Pin.OUT)  # ESP32板载LED，通常在GPIO2上
+    led = Pin(LED_PIN, Pin.OUT)
     while True:
         led.value(not led.value())  # 切换LED状态
         time.sleep(0.5)  # 等待0.5秒
@@ -120,4 +121,4 @@ def main(SSID, PASSWORD):
 
 if __name__ == '__main__':
 #     game_control()
-    main("QSGJ_2.4", "qjgj332211")
+    main(WIFI_SSID, WIFI_PASSWORD)

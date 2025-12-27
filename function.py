@@ -4,10 +4,11 @@ import utime
 from control import GameController
 from func_image import GPT_app, function, server ,data
 from server import main_server
+from config import I2C_SDA_PIN, I2C_SCL_PIN, OLED_ADDR, BUTTON1_PIN, BUTTON2_PIN
 
-controller = GameController(button1_pin=0, button2_pin=25)
-i2c = SoftI2C(sda=Pin(21), scl=Pin(22))
-oled = SSD1306_I2C(128, 64, i2c, addr=0x3c)
+controller = GameController(button1_pin=BUTTON1_PIN, button2_pin=BUTTON2_PIN)
+i2c = SoftI2C(sda=Pin(I2C_SDA_PIN), scl=Pin(I2C_SCL_PIN))
+oled = SSD1306_I2C(128, 64, i2c, addr=OLED_ADDR)
 oled.font_load("GB2312-12.fon")
 oled.fill(0)
 

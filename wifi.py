@@ -2,9 +2,10 @@ import network
 import time
 from machine import SoftI2C, Pin
 from ssd1306 import SSD1306_I2C
+from config import I2C_SDA_PIN, I2C_SCL_PIN, OLED_ADDR
 
-i2c = SoftI2C(sda=Pin(21), scl=Pin(22))
-oled = SSD1306_I2C(128, 64, i2c, addr=0x3c)
+i2c = SoftI2C(sda=Pin(I2C_SDA_PIN), scl=Pin(I2C_SCL_PIN))
+oled = SSD1306_I2C(128, 64, i2c, addr=OLED_ADDR)
 oled.font_load("GB2312-12.fon")
 oled.fill(0)
 

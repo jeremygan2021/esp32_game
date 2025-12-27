@@ -1,10 +1,11 @@
 from machine import Pin, SoftI2C
 from ssd1306 import SSD1306_I2C
+from config import I2C_SDA_PIN, I2C_SCL_PIN, OLED_ADDR
 
 
 
-i2c = SoftI2C(sda=Pin(21), scl=Pin(22))
-oled = SSD1306_I2C(128, 64, i2c, addr=0x3c)
+i2c = SoftI2C(sda=Pin(I2C_SDA_PIN), scl=Pin(I2C_SCL_PIN))
+oled = SSD1306_I2C(128, 64, i2c, addr=OLED_ADDR)
 
 def display_image_fast(oled, img):
     oled.fill(0)

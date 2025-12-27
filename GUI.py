@@ -1,5 +1,6 @@
 from machine import Pin, I2C
 from ssd1306 import SSD1306_I2C
+from config import I2C_SDA_PIN, I2C_SCL_PIN, OLED_ADDR
 import time
 
 class OLEDDrawer:
@@ -95,8 +96,8 @@ class HealthPointsPage(DisplayPage):
         self.drawer.draw_power_bar(44, 47, 80, 7, power_b)
 
 def main():
-    i2c = I2C(scl=Pin(22), sda=Pin(21))
-    drawer = OLEDDrawer(128, 64, i2c, addr=0x3c)
+    i2c = I2C(scl=Pin(I2C_SCL_PIN), sda=Pin(I2C_SDA_PIN))
+    drawer = OLEDDrawer(128, 64, i2c, addr=OLED_ADDR)
     fight_page = FightPointsPage(drawer)
     health_page = HealthPointsPage(drawer)
 
